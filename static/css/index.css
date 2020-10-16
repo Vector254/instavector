@@ -2,7 +2,7 @@ body{
     margin-top: 100px;
 }
 .status{
-    margin-top: 50px;
+    margin: 50px;
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
@@ -20,4 +20,28 @@ body{
 }
 .each p{
     margin-left: 15px;
+}
+.posts{
+    margin:50px;
+}
+.posts img{
+    width: 100%;
+    height: 100%;
+}
+#card-img{
+    padding: 2px;
+    
+    height: 50px;
+    width: 50px;
+    border: 2px solid rgb(199, 46, 140);
+    border-radius: 50px; 
+}
+.more{
+    margin: 20px;
+    float: right;
+    
+}
+.modal-content {
+    text-align: center;
+   
 }
