@@ -1,0 +1,25 @@
+#phones{
+    margin-left: 45px;
+    margin-top: 30px;
+    width: 450px;
+    height: 630px;
+    position: relative;
+}
+#app{
+    width: 130px;
+    height: 40px;
+    margin-left: 30px;
+    
+}
+.footer li{
+    list-style: none;
+    display: inline-block;
+    margin-right: 10px;
+}
+#shot{
+    
+    height:434px ;
+    width:238px ;
+    margin-top: 132px;
+    margin-left: -300px;
+}
