@@ -6,6 +6,9 @@ body{
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
+.each{
+    display: inline-block;
+}
 .each img{
     padding: 3px;
     margin: 10px;
@@ -16,5 +19,5 @@ body{
 
 }
 .each p{
-    margin-left: 30px;
+    margin-left: 15px;
 }

@@ -9,6 +9,17 @@ class Image(models.Model):
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null='True', blank=True)
 
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+        
+    @classmethod
+    def get_images(cls):
+        images = cls.objects.all()
+        return images
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     profile_picture = models.ImageField(upload_to='images/', default='default.png')
