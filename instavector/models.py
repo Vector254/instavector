@@ -3,11 +3,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'media/')
+    image = models.ImageField(upload_to = 'pics/')
     name = models.CharField(max_length=50,blank=True)	   
     caption = models.CharField(max_length=250, blank=True)	
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
-    comments = models.ForeignKey('Comment', on_delete=models.CASCADE,null='True', blank=True )   
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null='True', blank=True)
 
 class Profile(models.Model):
