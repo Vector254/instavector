@@ -5,21 +5,50 @@
     height: 630px;
     position: relative;
 }
-#app{
-    width: 130px;
-    height: 40px;
+.app{
     margin-left: 30px;
     
+}
+#app{
+    margin-left: 30px;
+    width: 130px;
+    height: 40px;   
+}
+#name{
+    font-weight: bold;
+    text-align: center;
+}
+.login{
+    margin-top: 120px;
+    margin-left: 20px;
+    border: 1px solid gray;
+    height: 400px;
+}
+.footer{
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 .footer li{
     list-style: none;
     display: inline-block;
     margin-right: 10px;
 }
-#shot{
+.footer li a{
+    color: rgb(2, 2, 121);
     
+}
+.footer li a:hover{
+    text-decoration: none;
+}
+#shot{
+    position: relative;
     height:434px ;
     width:238px ;
-    margin-top: 132px;
+    margin-top: 37px;
     margin-left: -300px;
+}
+.copy{
+    color: gray;
 }
