@@ -6,12 +6,14 @@
     display: inline-block;
     margin-right: 20px;
     margin-top: 20px;
+    font-size: 15px;
         
     
 }
 .navbar{
     background-color: lavender;
-    border: 3px solid gray;
+    
+    
 }
 #search{
     
