@@ -29,8 +29,19 @@
               <li><a href=""><i class="glyphicon glyphicon-globe"></i></a></li>
               <li><a href=""><i class="glyphicon glyphicon-heart-empty"></i></a></li>
               {% if user.is_authenticated %}
-              <li><a href="{% url 'profile' %}">profile</a></li>
-              <li><a href="{% url 'logout' %}">logout</a></li>
+              <li><div class="dropdown show">
+                <a  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  more
+                </a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'profile'%}"><i class="glyphicon glyphicon-user"></i> profile</a>
+                  <a class="dropdown-item" href="#"><i class="glyphicon glyphicon-cog"></i> settings</a><hr>
+                  <a class="dropdown-item" href="{% url 'logout'%}">Log Out</a>
+                </div>
+              </div>
+            </li>
+              
               {% endif %}
           </ul>
       </div>
