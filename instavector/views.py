@@ -28,7 +28,8 @@ def index(request):
 class PostListView(ListView):
     model = Image 
     template_name = 'index.html'
-    context_object_name = 'images'
+    context_object_name = 'images' 
+    ordering = ['-date_posted']
 
 @login_required
 def profile(request):
