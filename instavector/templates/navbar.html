@@ -1,3 +1,9 @@
+<style>
+  .user_pic{
+    height: 30px;
+    border-radius: 20px;
+  }
+</style>
 <div class="container-fluid navig">
 <nav class="navbar  navbar-fixed-top">
     <div class="col-sm-4 col-md-4">
@@ -31,7 +37,7 @@
               {% if user.is_authenticated %}
               <li><div class="dropdown show">
                 <a  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  more
+                  <img class="user_pic" src="{{user.profile.profile_picture.url}}" alt="">
                 </a>
               
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
