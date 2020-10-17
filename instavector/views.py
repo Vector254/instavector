@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
 from .forms import UserRegistrationForm
+from django.views.generic import ListView
 
 # Create your views here.
 def register(request):
@@ -23,6 +24,11 @@ def register(request):
 def index(request):
     images = Image.get_images()
     return render(request,'index.html',{"images":images})
+
+class PostListView(ListView):
+    model = Image 
+    template_name = 'index.html'
+    context_object_name = 'images'
 
 @login_required
 def profile(request):
