@@ -26,7 +26,8 @@ def index(request):
 
 @login_required
 def profile(request):
-    return render(request,'profile.html')
+    posts = Image.get_images()
+    return render(request,'profile.html',{"posts":posts})
 
 
 
