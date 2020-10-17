@@ -13,3 +13,5 @@ def index(request):
     images = Image.get_images()
     return render(request,'index.html',{"images":images})
 
+
+
