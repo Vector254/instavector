@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url,include
 from instavector import views as user_views
+from instavector.views import PostDetailView
 
 
 urlpatterns = [
@@ -26,5 +27,8 @@ urlpatterns = [
     url('login/', auth_views.LoginView.as_view(), name='login'),
     url('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     url('profile/', user_views.profile, name='profile'),
+    url('post/<int:pk>/',PostDetailView.as_view(),name = 'detail'),
+    
+
     
 ]

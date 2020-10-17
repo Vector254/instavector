@@ -5,7 +5,8 @@ from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
 from .forms import UserRegistrationForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.db.models.base import ObjectDoesNotExist
 
 # Create your views here.
 def register(request):
@@ -31,10 +32,26 @@ class PostListView(ListView):
     context_object_name = 'images' 
     ordering = ['-date_posted']
 
+class PostDetailView(DetailView):
+    model = Image 
+
+def detail(request,post_id):
+    try:
+        image = Image.objects.get(id=post_id)
+    except ObjectDoesNotExist:
+        raise Http404()
+    return render(request,"post_detail.html", {"image":image})
+    
+    
+    
+
 @login_required
 def profile(request):
     posts = Image.get_images()
     return render(request,'profile.html',{"posts":posts})
+
+
+
 
 
 

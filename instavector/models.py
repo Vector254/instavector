@@ -11,6 +11,8 @@ class Image(models.Model):
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null='True', blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.name
 
     def save_image(self):
         self.save()
