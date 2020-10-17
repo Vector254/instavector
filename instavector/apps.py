@@ -5,4 +5,4 @@ class InstavectorConfig(AppConfig):
     name = 'instavector'
 
     def ready(self):
-        import users.signals
+        import instavector.signals

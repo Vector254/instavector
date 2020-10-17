@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns=[
     url('^$',views.index,name = 'index'),
     url('accounts/', include('django.contrib.auth.urls')),
-    url('profile/<username>/', views.profile, name='profile'),
+    
     
 ]
 if settings.DEBUG:

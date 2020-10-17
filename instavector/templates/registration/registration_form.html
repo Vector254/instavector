@@ -15,9 +15,9 @@
         </div>
         <div class="panel-body">
 
-          <form  action="/accounts/register/" method="post">
+          <form method="post">
             {% csrf_token %}
-            {% bootstrap_form form %}
+            {{form}}
             <div class="form-group">
               <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
             </div>
@@ -25,6 +25,7 @@
             <input type="hidden" name="next" value="{{next}}">
 
           </form>
+          <small class="text-muted"> Already have an account? <a href="#">Sign in</a></small>
 
         </div>
 

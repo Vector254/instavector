@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 
 from django.conf.urls import url,include
+from instavector import views as user_views
 
 
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'',include('instavector.urls')),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url('register/', user_views.register, name='register')
     
 ]
