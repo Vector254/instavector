@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
-    
+    author  = models.ForeignKey(User, on_delete=models.CASCADE, null='True', blank=True)
     image = models.ImageField(upload_to = 'pics/')
     name = models.CharField(max_length=50,blank=True)	   
     caption = models.CharField(max_length=250, blank=True)	

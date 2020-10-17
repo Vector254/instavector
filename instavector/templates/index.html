@@ -19,7 +19,7 @@
     {% for image in images %}
     <div class="card ">
         <div class="card-header">
-          <img id="card-img" src="{{image.image.url}}" alt=""><b>{{image.name}}</b>
+          <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>{{image.author}}</b>
             <a class="more" href="#modalCenter" data-toggle="modal"><i class="glyphicon glyphicon-option-horizontal"></i></a>
             <!--modal-->
             <div class="modal fade" id="modalCenter"     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
