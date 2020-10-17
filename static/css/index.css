@@ -45,3 +45,7 @@ body{
     text-align: center;
    
 }
+a.glyphicon{
+    margin: 20px;
+    padding: 20px;
+}

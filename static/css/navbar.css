@@ -1,6 +1,7 @@
 #nav-name{
     font-weight: bold;
 }
+
 .navi li{
     list-style: none;
     display: inline-block;
@@ -12,7 +13,7 @@
 }
 .navbar{
     background-color: lavender;
-    
+    border: 2px solid black;
     
 }
 #search{
