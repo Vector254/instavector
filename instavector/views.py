@@ -19,10 +19,14 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'registration/registration_form.html',{'form':form})
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def index(request):
     images = Image.get_images()
     return render(request,'index.html',{"images":images})
+
+@login_required
+def profile(request):
+    return render(request,'profile.html')
 
 
 

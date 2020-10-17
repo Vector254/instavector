@@ -28,7 +28,10 @@
               <li><a href=""><i class="glyphicon glyphicon-send"></i></a></li>
               <li><a href=""><i class="glyphicon glyphicon-globe"></i></a></li>
               <li><a href=""><i class="glyphicon glyphicon-heart-empty"></i></a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'profile' %}">profile</a></li>
               <li><a href="{% url 'logout' %}">logout</a></li>
+              {% endif %}
           </ul>
       </div>
       </div>

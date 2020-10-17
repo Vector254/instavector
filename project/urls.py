@@ -25,5 +25,6 @@ urlpatterns = [
     url('register/', user_views.register, name='register'),
     url('login/', auth_views.LoginView.as_view(), name='login'),
     url('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
+    url('profile/', user_views.profile, name='profile'),
     
 ]
