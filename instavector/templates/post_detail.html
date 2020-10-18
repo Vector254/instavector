@@ -8,51 +8,50 @@
   body{
     margin-top: 60px;
   }
+  .main-pic{
+    width: 100%;
+    height: 100%;
+  }
 </style>
-<div class="container-fluid">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
 <div class="card ">
     <div class="card-header">
       <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>{{image.author}}</b>
-        <a class="more" href="#modalCenter" data-toggle="modal"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-        <!--modal-->
-        <div class="modal fade" id="modalCenter"     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <a href="">report</a><br><hr>
-                <a href="">unfollow</a><br><hr>
-                <a href="">go to post</a><br><hr>
-                <a href="">share</a><br><hr>
-                <a href="">copy link</a><br><hr>
-                <a href="">embed</a><br><hr>
-                <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">Close</button>
-                
-              </div>
-            </div>
-          </div>
+      {% if image.author == user %}
+      <a class="btn btn-danger" style="float: right;" href="{% url 'delete' image.id %}"><i class="glyphicon glyphicon-trash"></i></a> 
+      {% endif %}  
+     
     </div>
     <div class="card-body">
-        <img src="{{image.image.url}}" alt="">
-      <div class="reactions">
-          <a href=""><i class="glyphicon glyphicon-heart-empty"></i></a>
-          <a href=""><i class="glyphicon glyphicon-comment"></i></a>
-          <a href=""><i class="glyphicon glyphicon-send"></i></a>
-          <a href=""><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
-      </div>
-      <h5 class="card-title">{{image.name}}</h5>
+        <img class="main-pic" src="{{image.image.url}}" alt="">
+      
+      <h5 class="card-title"><b>{{image.name}}</b></h5>
       <p class="card-text">{{image.caption}}</p>
+    
+      
     
     </div>
     <div class="card-footer text-muted">
         <div class="row">
             <div class="col-md-10">
-            <input type="text-area" class="form-control" placeholder="add a comment ...">
+            <b>likes</b>
             </div>
             <div class="col-md-2">
-            <button class="btn btn-default">Post</button>
-            <button class="btn btn-danger"><a href="{% url 'delete' image.id%}">Delete</a> </button>
-            </div>
+           
+            
+          </div>
         </div>
     </div>
+  </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card ">
+      <div class="card-header text-center"><b>comments</b> </div>
+
+    </div>
+  </div>
   </div>
 </div>
 
