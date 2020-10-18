@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
-from .forms import UserRegistrationForm, PostForm
+from .forms import UserRegistrationForm, PostForm, CommentForm
 from django.views.generic import ListView, DeleteView
 from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -41,12 +41,14 @@ def create_post(request):
     context = {'form':form}
     return render(request,'image_form.html',context)
 
-
-class PostListView(LoginRequiredMixin,ListView):
-    model = Image 
-    template_name = 'index.html'
-    context_object_name = 'images' 
-    ordering = ['-date_posted']
+@login_required
+def index(request):
+    images = Image.objects.all()
+    
+  
+    context = {'images':images}
+       
+    return render(request, 'index.html', context)
 
 
 @login_required
@@ -54,11 +56,7 @@ def delete_post(request, post_id):
     # dictionary for initial data with  
     # field names as keys 
     context ={} 
-  
-    # fetch the object related to passed id 
-     
     post = Image.objects.get(pk=post_id)
-
     if request.method =="POST": 
             #check if owner before delete permision
         if post.author == request.user:
@@ -66,24 +64,34 @@ def delete_post(request, post_id):
             post.delete() 
         else:
 
-            messages.error(request, f'Permission denied!')
-                
+            messages.error(request, f'Permission denied!')    
             # after deleting redirect to  
             # home page 
         return redirect("index") 
-    
 
-  
     return render(request, "post_confirm_delete.html", context) 
 
 
 
 def detail(request,post_id):
-    try:
-        image = Image.objects.get(id=post_id)
-    except ObjectDoesNotExist:
-        raise Http404()
-    return render(request,"post_detail.html", {"image":image})
+   
+    image = Image.objects.get(id=post_id)
+    pic = get_object_or_404(Image, pk=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            savecomment = form.save(commit=False)
+            savecomment.image = pic
+            savecomment.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = CommentForm()
+    params = {
+        'image': image,
+        'pic':pic,
+        'form': form,}
+
+    return render(request,"post_detail.html", params)
     
     
     

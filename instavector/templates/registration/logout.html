@@ -1,10 +1,18 @@
-{%extends "registration/base.html"%} {% load bootstrap3 %}
+{%extends "base-no-nav.html"%} {% load bootstrap3 %}
 
 {% block content %}
+<style> 
+.card{
+    margin-top: 100px;
+    text-align: center;
+}
+</style>
 <div class="container">
+    <div class="card">
+        <div class="card-header">logged out</div>
     <h1>logged out successfully!</h1>
-          <small class="text-muted">not done yet?<a href="/login">Log in again</a></small>
-
+          <small class="text-muted">not done yet?<a href="/login"> Log in again</a></small>
+    </div>
     
 </div>
 

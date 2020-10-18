@@ -11,6 +11,10 @@
   .create-post button:hover{
     background-color: #c72e8c;
 }
+  .del{
+    font-weight: bold;
+    color: red;
+  }
 </style>
 <div class="container">
     
@@ -31,19 +35,21 @@
     {% for image in images %}
     <div class="card ">
         <div class="card-header">
-          <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>{{image.author}}</b>
+          <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>  {{image.author}}</b>
             <a class="more" href="#modalCenter" data-toggle="modal"><i class="glyphicon glyphicon-option-horizontal"></i></a>
             <!--modal-->
             <div class=" modal fade" id="modalCenter"     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="  modal-dialog modal-sm">
                   <div class="modal-content">
-                    <a href="">report</a><br><hr>
+                    
                     <a href="">unfollow</a><br><hr>
                     <a  href="#posted">go to post</a><br><hr>
                     <a href="">share</a><br><hr>
                     <a href="">copy link</a><br><hr>
-                    <a href="">embed</a><br><hr>
-                    <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">Close</button>
+                    {% if image.author == user %}
+                      <a class="del" href="{% url 'delete' image.id %}">delete</a><br><hr>
+                    {% endif %}
+                    <button type="button" class="btn btn-secondary text-center" data-dismiss="modal"><b>close</b> </button>
                     
                   </div>
                 </div>
@@ -58,9 +64,10 @@
               <a href="#"><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
           </div>
           <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
+          <p class="text-muted">{{image.comments.count}} comments</p>
           <div id="comment-section">
             {% for comment in image.comments.all|slice:'2' %}
-              <p><b>{{comment.name}}</b>{{comment.comment}}</p>
+              <p><b>{{comment.name}}</b> {{comment.comment}}</p>
           
              {% endfor %}
           </div>
@@ -69,14 +76,9 @@
         </div>
         <small class="text-muted">{{image.date_posted|date:"F d, Y"}}</small>
         <div class="card-footer text-muted">
-            <div class="row">
-                <div class="col-md-10">
-                <input type="text-area" class="form-control" placeholder="add a comment ...">
-                </div>
-                <div class="col-md-2">
-                <button class="btn btn-default">Post</button>
-                </div>
-            </div>
+         
+            <a href="{% url 'detail' image.id%}">comment</a>
+         
         </div>
       </div>
       {% endfor %}

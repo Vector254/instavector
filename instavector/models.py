@@ -32,6 +32,9 @@ class Image(models.Model):
     def get_all_comments(self):
         return self.comments.all()
 
+    class Meta:
+        ordering = ["-date_posted"]
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/', default='default.png')
