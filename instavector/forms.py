@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Image
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -9,3 +10,18 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','email','password1','password2']
+
+# creating a form 
+class PostForm(forms.ModelForm): 
+  
+    # create meta class 
+    class Meta: 
+        # specify model to be used 
+        model = Image 
+  
+        # specify fields to be used 
+        fields = [ 
+            "image", 
+            "name",
+            "caption", 
+        ] 

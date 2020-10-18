@@ -15,6 +15,7 @@
     {% endfor %}
         
    </div>
+   <button class="btn btn-success-outline"><a href="{% url 'create'%}">create post</a></button>
    <div class="posts">
     {% for image in images %}
     <div class="card ">
@@ -38,7 +39,7 @@
               </div>
         </div>
         <div class="card-body">
-            <a href="post/{{image.pk}}/"><img src="{{image.image.url}}" alt=""></a>
+            <a href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
           <div class="reactions">
               <a href=""><i class="glyphicon glyphicon-heart-empty"></i></a>
               <a href=""><i class="glyphicon glyphicon-comment"></i></a>

@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
-from .forms import UserRegistrationForm
-from django.views.generic import ListView, DetailView
+from .forms import UserRegistrationForm, PostForm
+from django.views.generic import ListView, CreateView, UpdateView
 from django.db.models.base import ObjectDoesNotExist
 
 # Create your views here.
@@ -21,10 +21,25 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'registration/registration_form.html',{'form':form})
 
+
+
+
 @login_required
-def index(request):
-    images = Image.get_images()
-    return render(request,'index.html',{"images":images})
+def create_post(request):
+    current_user = request.user
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES or None)
+        if form.is_valid():
+            add=form.save(commit=False)
+            add.author = current_user
+            add.save()
+            return redirect('index')
+    
+
+    context = {'form':form}
+    return render(request,'image_form.html',context)
+
 
 class PostListView(ListView):
     model = Image 
@@ -32,8 +47,7 @@ class PostListView(ListView):
     context_object_name = 'images' 
     ordering = ['-date_posted']
 
-class PostDetailView(DetailView):
-    model = Image 
+
 
 def detail(request,post_id):
     try:
