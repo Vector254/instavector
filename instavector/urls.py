@@ -12,7 +12,7 @@ urlpatterns=[
     url(r'post/(\d+)/delete',views.delete_post,name = 'delete'),
     url(r'post/new/',views.create_post,name = 'create'),
     #url(r'post/(\d+)/comment',views.comment,name = 'comment'),
-    url(r'like/',views.like_post,name = 'like'),
+    url(r'like/(\d+)',views.like_post,name = 'like'),
     url(r'post/(\d+)',views.detail,name = 'detail'),
     url('accounts/', include('django.contrib.auth.urls'))
    

@@ -1,5 +1,5 @@
-from django.shortcuts import render,redirect, get_object_or_404, HttpResponseRedirect
-from django.http  import HttpResponse
+from django.shortcuts import render,redirect, get_object_or_404
+from django.http  import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
@@ -8,6 +8,7 @@ from .forms import UserRegistrationForm, PostForm, CommentForm
 from django.views.generic import ListView, DeleteView
 from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse
 
 # Create your views here.
 def register(request):
@@ -44,9 +45,10 @@ def create_post(request):
 @login_required
 def index(request):
     images = Image.objects.all()
+    liked = False
     
   
-    context = {'images':images}
+    context = {'images':images,}
        
     return render(request, 'index.html', context)
 
@@ -77,6 +79,11 @@ def detail(request,post_id):
    
     image = Image.objects.get(id=post_id)
     pic = get_object_or_404(Image, pk=post_id)
+    total_likes = pic.total_likes()
+    liked = False
+    if pic.likes.filter(id=request.user.id).exists():
+        liked=True
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -90,7 +97,9 @@ def detail(request,post_id):
     params = {
         'image': image,
         'pic':pic,
-        'form': form,}
+        'form': form,
+        'total_likes':total_likes,
+        'liked':liked}
 
     return render(request,"post_detail.html", params)
     
@@ -104,10 +113,16 @@ def profile(request):
 
 
 @login_required
-def like_post(request):
-    post = get_object_or_404(Image, id=request.POST.get('post_id') )
-    post.likes.add(request.user)
-    return redirect('index')
+def like_post(request, pk):
+    post = get_object_or_404(Image, id=pk)
+    liked= False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked=False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
 

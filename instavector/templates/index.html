@@ -49,19 +49,28 @@
         </div>
         <div class="card-body">
             <a id="posted" href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
-            <!--likes section-->  
+          
             
           <div class="extra">
           <div class="reactions">
               
-                <form action="{% url 'like' %}" method="POST">
-                  {% csrf_token %}
-                  <button class="btn btn-default" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i> </button>
-                </form> 
-              
               <a href="#comment-section"><i class="glyphicon glyphicon-comment"></i></a>
               <a href="#"><i class="glyphicon glyphicon-send"></i></a>
-              <a href="#"><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
+              <a href="#"><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>  
+            <!--likes section-->
+            {% if image.likes.id.exists %}
+            <form action="{% url 'like' image.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-danger btn-sm" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i></button>
+            </form>
+            {% else %}
+            <form action="{% url 'like' image.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-primary btn-sm" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i></button>
+            </form>
+            {% endif %}
+                  <p><b>{{ image.total_likes }} likes</b></p>
+              
           </div>
           <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
           <p class="text-muted">{{image.comments.count}} comments</p>

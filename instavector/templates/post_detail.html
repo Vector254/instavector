@@ -29,10 +29,18 @@
       
       <h5 class="card-title"><b>{{image.name}}</b></h5>
       <p class="card-text">{{image.caption}}</p>
-      <form action="{% url 'like' %}" method="POST">
+      <!--likes section-->
+      {% if liked %}
+      <form action="{% url 'like' image.id %}" method="POST">
         {% csrf_token %}
-        <button class="btn btn-primary" type="submit" name="image_id" value="{{image.id}}">like</button>
+        <button class="btn btn-danger btn-sm" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i></button>
       </form>
+      {% else %}
+      <form action="{% url 'like' image.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-sm" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i></button>
+      </form>
+      {% endif %}
     
       
     
@@ -40,7 +48,7 @@
     <div class="card-footer text-muted">
         <div class="row">
             <div class="col-md-10">
-            <b>likes</b>
+            <b>{{ total_likes }} likes</b>
             </div>
             <div class="col-md-2">
            

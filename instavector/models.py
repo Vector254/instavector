@@ -24,6 +24,9 @@ class Image(models.Model):
     def delete_image(self):
         self.delete()
 
+    def total_likes(self):
+        return self.likes.count()
+
     @classmethod
     def get_images(cls):
         images = cls.objects.all()
