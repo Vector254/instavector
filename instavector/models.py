@@ -11,6 +11,7 @@ class Image(models.Model):
     caption = models.CharField(max_length=250, blank=True)	
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
     date_posted = models.DateTimeField(default=timezone.now)
+    
     def __str__(self):
         return self.name
 
@@ -47,6 +48,7 @@ class Comment(models.Model):
     comment = models.TextField()
     image = models.ForeignKey('Image', on_delete=models.CASCADE,related_name='comments',null='True', blank=True )
     name = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments',null='True', blank=True )
     created = models.DateTimeField(auto_now_add=True, null=True)  
 
     def __str__(self):

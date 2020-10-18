@@ -29,6 +29,10 @@
       
       <h5 class="card-title"><b>{{image.name}}</b></h5>
       <p class="card-text">{{image.caption}}</p>
+      <form action="{% url 'like' %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit" name="image_id" value="{{image.id}}">like</button>
+      </form>
     
       
     

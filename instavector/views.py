@@ -82,8 +82,9 @@ def detail(request,post_id):
         if form.is_valid():
             savecomment = form.save(commit=False)
             savecomment.image = pic
+            savecomment.user = request.user.profile
             savecomment.save()
-            return HttpResponseRedirect(request.path_info)
+            return redirect('index')
     else:
         form = CommentForm()
     params = {
@@ -102,6 +103,11 @@ def profile(request):
     return render(request,'profile.html',{"posts":posts})
 
 
+@login_required
+def like_post(request):
+    post = get_object_or_404(Image, id=request.POST.get('post_id') )
+    post.likes.add(request.user)
+    return redirect('index')
 
 
 
