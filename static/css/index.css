@@ -14,12 +14,15 @@ body{
     margin: 10px;
     height: 80px;
     width: 80px;
-    border: 2px solid rgb(199, 46, 140);
+    border: 2px solid #c72e8c;
     border-radius: 50px;
 
 }
 .each p{
     margin-left: 15px;
+}
+.create_post btn{
+    background-color: #c72e8c;
 }
 .posts{
     margin:50px;

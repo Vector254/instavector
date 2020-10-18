@@ -41,6 +41,8 @@ def create_post(request):
     return render(request,'image_form.html',context)
 
 
+
+
 class PostListView(ListView):
     model = Image 
     template_name = 'index.html'

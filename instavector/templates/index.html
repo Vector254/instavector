@@ -4,6 +4,14 @@
 
 
 {{block.super}}
+<style>
+   .create-post button{
+    border:1px solid #c72e8c;
+}
+  .create-post button:hover{
+    background-color: #c72e8c;
+}
+</style>
 <div class="container">
     
    <div class="status">
@@ -15,7 +23,10 @@
     {% endfor %}
         
    </div>
-   <button class="btn btn-success-outline"><a href="{% url 'create'%}">create post</a></button>
+   <div class="create-post text-center">
+     <a href="{% url 'create'%}"><button class="btn btn-info">create post</button> </a>
+   </div>
+   
    <div class="posts">
     {% for image in images %}
     <div class="card ">
