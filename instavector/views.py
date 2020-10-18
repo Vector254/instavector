@@ -1,12 +1,13 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404, HttpResponseRedirect
 from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
 from .forms import UserRegistrationForm, PostForm
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, DeleteView
 from django.db.models.base import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 def register(request):
@@ -41,13 +42,31 @@ def create_post(request):
     return render(request,'image_form.html',context)
 
 
-
-
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin,ListView):
     model = Image 
     template_name = 'index.html'
     context_object_name = 'images' 
     ordering = ['-date_posted']
+
+# delete view for details 
+@login_required
+def delete_post(request, post_id): 
+    # dictionary for initial data with  
+    # field names as keys 
+    context ={} 
+  
+    # fetch the object related to passed id 
+     
+    post = Image.objects.get(pk=post_id)
+  
+    if request.method =="POST": 
+        # delete object 
+        post.delete() 
+        # after deleting redirect to  
+        # home page 
+        return redirect("index") 
+  
+    return render(request, "post_confirm_delete.html", context) 
 
 
 
