@@ -17,7 +17,7 @@
    <div class="status">
     {% for image in images %}
        <div class="each">
-            <a href=""><img src="{{image.image.url}}" alt=""></a>
+            <a href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
             <p>{{image.name|truncatechars:12}}</p>
         </div>
     {% endfor %}
@@ -34,12 +34,12 @@
           <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>{{image.author}}</b>
             <a class="more" href="#modalCenter" data-toggle="modal"><i class="glyphicon glyphicon-option-horizontal"></i></a>
             <!--modal-->
-            <div class="modal fade" id="modalCenter"     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+            <div class=" modal fade" id="modalCenter"     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="  modal-dialog modal-sm">
                   <div class="modal-content">
                     <a href="">report</a><br><hr>
                     <a href="">unfollow</a><br><hr>
-                    <a href="">go to post</a><br><hr>
+                    <a  href="#posted">go to post</a><br><hr>
                     <a href="">share</a><br><hr>
                     <a href="">copy link</a><br><hr>
                     <a href="">embed</a><br><hr>
@@ -50,18 +50,21 @@
               </div>
         </div>
         <div class="card-body">
-            <a href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
+            <a id="posted" href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
           <div class="reactions">
-              <a href=""><i class="glyphicon glyphicon-heart-empty"></i></a>
-              <a href=""><i class="glyphicon glyphicon-comment"></i></a>
-              <a href=""><i class="glyphicon glyphicon-send"></i></a>
-              <a href=""><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
+              <a href="#"><i class="glyphicon glyphicon-heart-empty"></i></a>
+              <a href="#comment-section"><i class="glyphicon glyphicon-comment"></i></a>
+              <a href="#"><i class="glyphicon glyphicon-send"></i></a>
+              <a href="#"><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
           </div>
           <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
-          {% for comment in image.comments.all|slice:'2' %}
-          <p><b>{{comment.name}}</b>{{comment.comment}}</p>
+          <div id="comment-section">
+            {% for comment in image.comments.all|slice:'2' %}
+              <p><b>{{comment.name}}</b>{{comment.comment}}</p>
           
-          {% endfor %}
+             {% endfor %}
+          </div>
+          
         
         </div>
         <small class="text-muted">{{image.date_posted|date:"F d, Y"}}</small>
