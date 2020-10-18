@@ -57,8 +57,11 @@
               <a href=""><i class="glyphicon glyphicon-send"></i></a>
               <a href=""><i class="glyphicon glyphicon-bookmark" style="float: right;"></i></a>
           </div>
-          <h5 class="card-title">{{image.name}}</h5>
-          <p class="card-text">{{image.caption}}</p>
+          <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
+          {% for comment in image.comments.all|slice:'2' %}
+          <p><b>{{comment.name}}</b>{{comment.comment}}</p>
+          
+          {% endfor %}
         
         </div>
         <small class="text-muted">{{image.date_posted|date:"F d, Y"}}</small>
