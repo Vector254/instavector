@@ -21,7 +21,11 @@ body{
 .each p{
     margin-left: 15px;
 }
-.create_post btn{
+
+.create-post button{
+    border:1px solid #c72e8c;
+}
+  .create-post button:hover{
     background-color: #c72e8c;
 }
 .posts{

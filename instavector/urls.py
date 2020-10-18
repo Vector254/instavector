@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import PostListView, PostDeleteView
+from .views import PostListView
 from django.contrib.auth.decorators import login_required
 
 

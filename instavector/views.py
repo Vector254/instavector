@@ -16,7 +16,7 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for successfully!')
+            messages.success(request, f'Account created successfully!')
             return redirect('login')
     else:
         form = UserRegistrationForm()
@@ -48,7 +48,7 @@ class PostListView(LoginRequiredMixin,ListView):
     context_object_name = 'images' 
     ordering = ['-date_posted']
 
-# delete view for details 
+
 @login_required
 def delete_post(request, post_id): 
     # dictionary for initial data with  
@@ -58,13 +58,21 @@ def delete_post(request, post_id):
     # fetch the object related to passed id 
      
     post = Image.objects.get(pk=post_id)
-  
+
     if request.method =="POST": 
-        # delete object 
-        post.delete() 
-        # after deleting redirect to  
-        # home page 
+            #check if owner before delete permision
+        if post.author == request.user:
+                # delete object 
+            post.delete() 
+        else:
+
+            messages.error(request, f'Permission denied!')
+                
+            # after deleting redirect to  
+            # home page 
         return redirect("index") 
+    
+
   
     return render(request, "post_confirm_delete.html", context) 
 

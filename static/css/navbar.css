@@ -12,10 +12,15 @@
         
     
 }
+.user_pic{
+    height: 30px;
+    border-radius: 20px;
+  }
 
 .navbar{
     background-color: lavender;
     border: 2px solid black;
+    display: block;
     
 }
 #search{
