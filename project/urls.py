@@ -22,6 +22,7 @@ from instavector import views as user_views
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'',include('instavector.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     
 
     

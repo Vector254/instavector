@@ -10,8 +10,10 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns=[
     url('^$',views.index,name = 'index'),
-    url('register/', views.register, name='register'),
-    url('login/', auth_views.LoginView.as_view(), name='login'),
+    url('accounts/', include('django.contrib.auth.urls')),
+   
+    #url('register/', views.register, name='register'),
+    #url('login/', auth_views.LoginView.as_view(), name='login'),
     url('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     url('profile/', views.profile, name='profile'),
     url(r'post/(\d+)/delete',views.delete_post,name = 'delete'),
