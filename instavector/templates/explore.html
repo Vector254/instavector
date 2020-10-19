@@ -15,6 +15,7 @@
     }
     .follow{
         background-color: #c90a79;
+        color:white;
     }
 </style>
 <div class="container">
@@ -28,13 +29,19 @@
               
                 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <b>{{user.name.username}}</b>
             <p>{{user.bio}}</p>
         </div>
+        <div class="col-md-2">
+            following:<b> {{user.following.count}}</b><br>
+            followers:<b> {{user.followers.count}}</b>
+        </div>
     
         <div class="col-md-4"> 
-            <button class="btn btn-primary follow">follow</button>
+            {% if user.name.username != user.profile.name %}
+            <a href="{% url 'follow' user.name.id %}" class="btn follow">follow</a>
+            {% endif %}
         </div>
          
     </div>  

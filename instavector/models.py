@@ -6,7 +6,7 @@ from PIL import Image
 
 # Create your models here.
 class Image(models.Model):
-    user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='images',default ="")
+
     author  = models.ForeignKey(User, on_delete=models.CASCADE, null='True', blank=True)
     image = models.ImageField(upload_to = 'pics/')
     name = models.CharField(max_length=50,blank=True)	   
@@ -79,3 +79,10 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ["-pk"]
+
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower} Follow'

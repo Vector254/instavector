@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http  import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .models import Image,Comment,Profile
+from .models import Image,Comment,Profile, Follow
 from django.contrib import messages
 from .forms import UserRegistrationForm, PostForm, CommentForm, UserUpdateForm, ProfileUpdateForm
 from django.views.generic import ListView, DeleteView
@@ -159,15 +159,11 @@ def like_post(request, pk):
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 def follow(request, pk):
-    profile = get_object_or_404(Profile, id=pk)
-    followed= False
-    if profile.follows.filter(id=request.user.id).exists():
-        profile.follows.remove(request.user)
-        followed= False
-    else:
-        profile.follows.add(request.user)
-        followed = True
-        return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
+    if request.method == 'GET':
+        user_profile = Profile.objects.get(pk=pk)
+        follow = Follow(follower=request.user.profile, followed=user_profile)
+        follow.save()
+        return redirect('explore',)
 
 
 def search_results(request):
@@ -187,6 +183,7 @@ def search_results(request):
 def explore(request):
 
     users=Profile.objects.all()
-    context = {'users':users,}
     
-    return render(request,'explore.html', context)
+   
+
+    return render(request,'explore.html', {'users':users,})
