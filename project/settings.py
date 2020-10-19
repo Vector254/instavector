@@ -88,7 +88,7 @@ if config('MODE')=='dev':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DB_NAME'),
+            'NAME':'instavector',
             'USER':config('DB_USER'),
             'PASSWORD':config('DB_PASSWORD'),
             'PORT':'',

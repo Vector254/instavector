@@ -36,6 +36,5 @@ class CommentForm(forms.ModelForm):
         # specify fields to be used 
         fields = [ 
             "comment", 
-            "name",
             
         ] 

@@ -45,12 +45,19 @@ class Image(models.Model):
         ordering = ["-date_posted"]
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)	  
+    follows =  models.ManyToManyField(User, related_name='follows', blank=True, )
+
+    def total_follows(self):
+        return self.follows.count()
+
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.name.username} Profile'
+
+
 
 class Comment(models.Model):
     comment = models.TextField()

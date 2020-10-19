@@ -69,21 +69,21 @@
               <button class="btn btn-primary btn-sm" type="submit" name="image_id" value="{{image.id}}"><i class="glyphicon glyphicon-heart-empty"></i></button>
             </form>
             {% endif %}
-                  <p><b>{{ image.total_likes }} likes</b></p>
+                  <p><b>{{ image.total_likes }} like{{image.total_likes|pluralize}}</b></p>
               
           </div>
           <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
-          <p class="text-muted">{{image.comments.count}} comments</p>
+          <p class="text-muted">{{image.comments.count}} comment{{image.comments.count|pluralize}}</p>
           <div id="comment-section">
             {% for comment in image.comments.all|slice:'2' %}
-              <p><b>{{comment.name}}</b> {{comment.comment}}</p>
+              <p><b>{{comment.user.name}}</b> {{comment.comment}}</p>
           
              {% endfor %}
           </div>
           
         
         
-        <small class="text-muted">{{image.date_posted|date:"F d, Y"}}</small>
+        <small class="text-muted">{{image.date_posted|timesince}} ago</small>
         </div>
         <div class="card-footer text-muted">
          

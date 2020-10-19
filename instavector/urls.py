@@ -20,6 +20,7 @@ urlpatterns=[
     url(r'post/new/',views.create_post,name = 'create'),
     #url(r'post/(\d+)/comment',views.comment,name = 'comment'),
     url(r'like/(\d+)',views.like_post,name = 'like'),
+    url(r'follow/(\d+)',views.follow,name = 'follow'),
     url(r'post/(\d+)',views.detail,name = 'detail'),
     url(r'^search/', views.search_results, name='search'),
    

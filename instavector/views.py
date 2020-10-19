@@ -109,8 +109,14 @@ def detail(request,post_id):
 
 @login_required
 def profile(request):
-    posts = Image.get_images()
-    return render(request,'profile.html',{"posts":posts})
+    images = Image.objects.all()
+    
+    params = {
+        'images':images,
+   
+    }
+   
+    return render(request, 'profile.html', params)
 
 
 @login_required
@@ -124,6 +130,18 @@ def like_post(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
+
+def follow(request, pk):
+    profile = get_object_or_404(Profile, id=pk)
+    followed= False
+    if profile.follows.filter(id=request.user.id).exists():
+        profile.follows.remove(request.user)
+        followed= False
+    else:
+        profile.follows.add(request.user)
+        followed = True
+        return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
+
 
 def search_results(request):
 
