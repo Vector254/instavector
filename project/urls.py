@@ -22,6 +22,7 @@ from instavector import views as user_views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
+    
     url(r'',include('instavector.urls')),
     url('register/', user_views.register, name='register'),
     url('login/', auth_views.LoginView.as_view(), name='login'),
