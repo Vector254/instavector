@@ -9,6 +9,7 @@ from django.views.generic import ListView, DeleteView
 from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your views here.
 def register(request):
@@ -123,6 +124,19 @@ def like_post(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
+
+def search_results(request):
+
+    if 'query' in request.GET and request.GET["query"]:
+        search_term = request.GET.get("query")
+        searched_images = Image.search_by_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"images": searched_images})
+
+    else:
+        message = "You haven't searched!"
+        return render(request, 'search.html',{"message":message})
 
 
 

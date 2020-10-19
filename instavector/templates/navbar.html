@@ -18,14 +18,17 @@
       <div class="col-sm-4 col-md-4">
     
 
-        <form id="search" class="navbar-form " role="search" action="">
+        <form id="search" class="navbar-form " role="search" action="{% url 'search' %}">
 
           <div class="input-group">
-            <input type="text" class="form-control text-center" placeholder="Search" name="image">
+            <input type="text" class="form-control text-center" placeholder="Search" name="query">
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
           </div>
 
         </form>
+
       </div>
+       <!-- search form end -->
       <div class="col-sm-4 col-md-4">
       <div class="navi navbar-right">
           <ul>
@@ -52,7 +55,7 @@
           </ul>
       </div>
       </div>
-      <!-- search form end -->
+     
     
 </nav>
 <hr>

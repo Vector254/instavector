@@ -28,6 +28,11 @@ class Image(models.Model):
         return self.likes.count()
 
     @classmethod
+    def search_by_name(cls, search_term):
+        images = cls.objects.filter(name__icontains=search_term)
+        return images 
+
+    @classmethod
     def get_images(cls):
         images = cls.objects.all()
         return images

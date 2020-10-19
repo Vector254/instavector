@@ -14,7 +14,8 @@ urlpatterns=[
     #url(r'post/(\d+)/comment',views.comment,name = 'comment'),
     url(r'like/(\d+)',views.like_post,name = 'like'),
     url(r'post/(\d+)',views.detail,name = 'detail'),
-    url('accounts/', include('django.contrib.auth.urls'))
+    url('accounts/', include('django.contrib.auth.urls')),
+    url(r'^search/', views.search_results, name='search'),
    
     
     
