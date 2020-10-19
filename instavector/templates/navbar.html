@@ -3,10 +3,13 @@
     height: 30px;
     border-radius: 20px;
   }
+  .search-btn  {
+    position:absolute;
+  }
 </style>
 <div class="container-fluid navig">
 <nav class="navbar  navbar-fixed-top">
-    <div class="col-sm-4 col-md-4">
+    <div class="col-sm-3 col-md-3">
       <div class="navbar-header">
         <a id="nav-name" class="navbar-brand" href="/">Instavector</a>
         
@@ -15,14 +18,14 @@
     </div>
       
       <!-- Adding a search form  -->
-      <div class="col-sm-4 col-md-4">
+      <div class=" col-md-5">
     
 
         <form id="search" class="navbar-form " role="search" action="{% url 'search' %}">
 
           <div class="input-group">
             <input type="text" class="form-control text-center" placeholder="Search" name="query">
-            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            <button type="submit" class="btn search-btn"><i class="glyphicon glyphicon-search"></i></button>
           </div>
 
         </form>
