@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile
 from django.contrib import messages
-from .forms import UserRegistrationForm, PostForm, CommentForm
+from .forms import UserRegistrationForm, PostForm, CommentForm, UserUpdateForm, ProfileUpdateForm
 from django.views.generic import ListView, DeleteView
 from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -110,14 +110,41 @@ def detail(request,post_id):
 @login_required
 def profile(request):
     images = Image.objects.all()
-    
+    if request.method=='POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+           user_form.save() 
+           profile_form.save()
+           messages.success(request, f'Profile info updated successfully!')
+           return redirect('profile')
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
     params = {
         'images':images,
-   
+        'user_form':user_form,
+        'profile_form':profile_form,
     }
    
     return render(request, 'profile.html', params)
 
+
+@login_required
+def user_profile(request, username):
+    users = get_object_or_404(User, username=username)
+    if request.user == users:
+        return redirect('profile', username=request.user.username)
+    posts = users.profile.images.all()
+    params = {
+        'users': users,
+        'posts': posts,
+    }
+
+    return render(request, 'user_profile.html', params)
 
 @login_required
 def like_post(request, pk):

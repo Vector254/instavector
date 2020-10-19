@@ -2,9 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from PIL import Image
 
 # Create your models here.
 class Image(models.Model):
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='images',default ="")
     author  = models.ForeignKey(User, on_delete=models.CASCADE, null='True', blank=True)
     image = models.ImageField(upload_to = 'pics/')
     name = models.CharField(max_length=50,blank=True)	   
@@ -12,6 +14,7 @@ class Image(models.Model):
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
     date_posted = models.DateTimeField(default=timezone.now)
     
+
     def __str__(self):
         return self.name
 
@@ -53,7 +56,10 @@ class Profile(models.Model):
     def total_follows(self):
         return self.follows.count()
 
+    def save(self):
+      super().save() 
 
+      
     def __str__(self):
         return f'{self.name.username} Profile'
 

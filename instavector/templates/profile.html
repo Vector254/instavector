@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% load crispy_forms_tags %}
 {% block content %}
 <style>
    body{
@@ -20,6 +21,9 @@
     height:280px ;
     width: 100%;
 }
+.modal-content{
+    padding: 20px;
+}
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -28,7 +32,8 @@
             <img class="prof_pic" src="{{user.profile.profile_picture.url}}" alt="profile_pic">
         </div>
         <div class="col-md-4">
-            <h1>{{user.username}} <button class="btn btn-default"><b>edit profile</b> </button></h1>
+            <h1>{{user.username}} </h1>
+                <button class="btn btn-default" data-toggle="modal" data-target=".bd-modal-md"><b>edit profile</b> </button>
             <h5>email: <b>{{user.email}}</b> </h5>
 
            
@@ -36,7 +41,7 @@
          
             <div class="etc">
                 <ul>
-                    <li><b>{{user_posts.count}}</b>posts</li>
+                    <li><b>{{images.count}}</b>posts</li>
                   
                     <li>followers</li>
                     <li>following</li>
@@ -45,16 +50,30 @@
             
             <br><p>{{user.profile.bio}}</p>
         </div>
-        <div class="col-md-4">
-            <form action="{% url 'follow' user.id %}" method="POST">
+    </div>
+    <hr>
+    <!--profile update form-->
+    <div  class="modal fade bd-modal-md" tabindex="-1" role="dialog" aria-hidden="true">
+       <div class="modal-dialog modal-md ">
+        <div class="modal-content">
+        <b>edit profile</b><hr><br>
+                <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <button class="btn btn-outline-danger " type="submit" name="image_id" value="{{image.id}}">follow</button>
+                {{user_form|crispy}}
+                {{profile_form|crispy}}
+                <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-sm" value="update">
+                </div>
+
+                <input type="hidden" name="next" value="{{next}}">
+
             </form>
-        </div>
+      </div>
+    </div>
     </div>
     <hr>
     <p class="text-center"><b>POSTS</b> </p>
-    {% for post in user_posts %}
+    {% for post in images %}
     <div class="col-md-4">
         <div class="posted">
             <img src="{{post.image.url}}" alt="">
