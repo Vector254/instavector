@@ -43,7 +43,7 @@ def create_post(request):
     context = {'form':form}
     return render(request,'image_form.html',context)
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def index(request):
     images = Image.objects.all()
     liked = False
@@ -107,13 +107,13 @@ def detail(request,post_id):
     
     
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def profile(request):
     posts = Image.get_images()
     return render(request,'profile.html',{"posts":posts})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def like_post(request, pk):
     post = get_object_or_404(Image, id=pk)
     liked= False
