@@ -56,8 +56,6 @@ class Profile(models.Model):
     def total_follows(self):
         return self.follows.count()
 
-    def save(self):
-      super().save() 
 
     def get_profiles(cls):
         users = cls.objects.all()

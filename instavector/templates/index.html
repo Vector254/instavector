@@ -40,7 +40,7 @@
                     <a  href="#posted">go to post</a><br><hr>
                     <a href="">share</a><br><hr>
                     <a href="">copy link</a><br><hr>
-                    {% if image.author == user %}
+                    {% if image.author ==  user.profile.name.username %}
                       <a class="del" href="{% url 'delete' image.id %}">delete</a><br><hr>
                     {% endif %}
                     <button type="button" class="btn btn-secondary text-center" data-dismiss="modal"><b>close</b> </button>
