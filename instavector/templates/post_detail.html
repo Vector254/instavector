@@ -12,6 +12,9 @@
     width: 100%;
     height: 100%;
   }
+  #comment-section{
+    padding: 10px;
+  }
 </style>
 <div class="container">
   <div class="row">
@@ -60,13 +63,22 @@
   </div>
   <div class="col-md-6">
     <div class="card ">
-      <div class="card-header text-center"><b>comment</b> </div>
+      <div class="card-header text-center"><b>comments</b> </div>
+      <p class="text-muted text-center">{{image.comments.count}} comment{{image.comments.count|pluralize}}</p>
+      <div id="comment-section">
+        {% for comment in image.comments.all%}
+          <p><b>{{comment.user.name}}</b> {{comment.comment}}</p>
+      
+         {% endfor %}
+      
+      
        
-        <form  action="" method="POST" enctype="multipart/form-data">
+        <form class="comment-form" action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {{form|crispy}}
-          <input type="submit" value="post" class="btn btn-default">
+          <input type="submit" value="comment" class="btn btn-primary">
         </form>
+        </div>
     </div>
   </div>
   </div>
