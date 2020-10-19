@@ -184,5 +184,9 @@ def search_results(request):
         return render(request, 'search.html',{"message":message})
 
 
+def explore(request):
 
-
+    users=Profile.objects.all()
+    context = {'users':users,}
+    
+    return render(request,'explore.html', context)

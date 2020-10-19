@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    body{
+        margin-top: 100px;
+        text-align: center;
+    }
+   
+    .prof_pic{
+        border: 2px solid rgb(201, 10, 121);
+        padding: 2px;
+        border-radius: 150px;
+        height: 50px;
+        width:100px;
+    }
+</style>
+<div class="container">
+    <h3><b>people</b></h3><hr>
+   
+    {% for user in users %}
+    <div class="row"> 
+        <div class="col-md-4">
+               
+                <img class="prof_pic" src="{{user.profile_picture.url}}" alt="profile_img">
+              
+                
+        </div>
+        <div class="col-md-4">
+            <b>{{user.name.username}}</b>
+            <p>{{user.bio}}</p>
+        </div>
+    
+        <div class="col-md-4"> 
+            <button class="btn btn-primary">follow</button>
+        </div>
+         
+    </div>  
+    <hr>      
+        {% endfor %}
+     
+</div>
+
+{% endblock %}

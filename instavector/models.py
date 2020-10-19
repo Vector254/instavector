@@ -59,6 +59,10 @@ class Profile(models.Model):
     def save(self):
       super().save() 
 
+    def get_profiles(cls):
+        users = cls.objects.all()
+        return users
+
       
     def __str__(self):
         return f'{self.name.username} Profile'
