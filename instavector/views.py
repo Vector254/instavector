@@ -3,6 +3,7 @@ from django.http  import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import Image,Comment,Profile, Follow
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserRegistrationForm, PostForm, CommentForm, UserUpdateForm, ProfileUpdateForm
 from django.views.generic import ListView, DeleteView
@@ -108,8 +109,10 @@ def detail(request,post_id):
     
 
 @login_required
-def profile(request):
-    images = Image.objects.all()
+def profile(request, pk):
+    images = request.user.profile.posts.all()
+    user_profile = get_object_or_404(User, pk=pk)
+   
     if request.method=='POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -128,23 +131,12 @@ def profile(request):
         'images':images,
         'user_form':user_form,
         'profile_form':profile_form,
+        'user_profile':user_profile,
+       
     }
    
     return render(request, 'profile.html', params)
 
-
-@login_required
-def user_profile(request, username):
-    users = get_object_or_404(User, username=username)
-    if request.user == users:
-        return redirect('profile', username=request.user.username)
-    posts = users.profile.images.all()
-    params = {
-        'users': users,
-        'posts': posts,
-    }
-
-    return render(request, 'user_profile.html', params)
 
 @login_required
 def like_post(request, pk):

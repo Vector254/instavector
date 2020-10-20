@@ -9,7 +9,8 @@ class Image(models.Model):
 
     author  = models.ForeignKey(User, on_delete=models.CASCADE, null='True', blank=True)
     image = models.ImageField(upload_to = 'pics/')
-    name = models.CharField(max_length=50,blank=True)	   
+    name = models.CharField(max_length=50,blank=True)
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='posts',)	   
     caption = models.CharField(max_length=250, blank=True)	
     likes =  models.ManyToManyField(User, related_name='likes', blank=True, )
     date_posted = models.DateTimeField(default=timezone.now)
@@ -51,7 +52,7 @@ class Profile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)	  
-    follows =  models.ManyToManyField(User, related_name='follows', blank=True, )
+    
 
     def total_follows(self):
         return self.follows.count()
@@ -86,3 +87,6 @@ class Follow(models.Model):
 
     def __str__(self):
         return f'{self.follower} Follow'
+
+    class Meta:
+        unique_together = ('follower', 'followed')
