@@ -90,3 +90,7 @@ class Follow(models.Model):
 
     class Meta:
         unique_together = ('follower', 'followed')
+    
+    def clean(self):
+        if self.follower == self.followed:
+            raise ValidationError("One Cannot follow themselves")

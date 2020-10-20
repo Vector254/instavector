@@ -154,8 +154,13 @@ def follow(request, pk):
     if request.method == 'GET':
         user_profile = Profile.objects.get(pk=pk)
         follow = Follow(follower=request.user.profile, followed=user_profile)
-        follow.save()
-        return redirect('explore',)
+        if follow.follower == follow.followed:
+            follow=False
+            messages.warning(request, f'You cannot follow self!')
+            return redirect('explore',)
+        else:
+            follow.save()
+            return redirect('explore',)
 
 
 def search_results(request):
