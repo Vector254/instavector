@@ -110,7 +110,7 @@ def detail(request,post_id):
 
 @login_required
 def profile(request, pk):
-    images = request.user.profile.posts.all()
+    images = Image.objects.all()
     user_profile = get_object_or_404(User, pk=pk)
    
     if request.method=='POST':
