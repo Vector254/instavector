@@ -179,7 +179,7 @@ def search_results(request):
 
 def explore(request):
 
-    users=Profile.objects.all()
+    users=Profile.objects.exclude(name=request.user)
     
    
 
