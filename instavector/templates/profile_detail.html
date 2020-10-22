@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body{
+        margin-top: 100px;
+    }
+</style>
+<div class="container">
+    <img src="" alt="">
+    <div class="col-md-5">
+        <b>{{object.name}}</b>  
+        {% if follow %}
+            <form action="{% url 'follow-unfollow-view' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="profile_pk" value={{object.pk}}>
+                <button type="submit" class="btn btn-danger">unfollow</button>
+            </form>
+        {% else %}
+        <form action="{% url 'follow-unfollow-view' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="profile_pk" value={{object.pk}}>
+            <button type="submit" class="btn btn-primary">follow</button>
+        </form>
+        {%endif%}
+    </div>
+    <div class="col-md-7">
+        {% for post in object.profile_posts %}
+            <div class="card">
+                <div class="card-header">
+                    {{post.author}}
+                </div>
+                <div class="card-body">
+                    {{post.name}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock %}

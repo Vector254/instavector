@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 #from .views import PostListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
+from .views import ProfileDetailView
 
 
 
@@ -20,9 +21,11 @@ urlpatterns=[
     url(r'post/new/',views.create_post,name = 'create'),
     #url(r'post/(\d+)/comment',views.comment,name = 'comment'),
     url(r'like/(\d+)',views.like_post,name = 'like'),
-    url(r'follow/(\d+)',views.follow,name = 'follow'),
+    url('follow-unfollow/',views.follow_unfollow,name = 'follow-unfollow-view'),
     url(r'post/(\d+)',views.detail,name = 'detail'),
     url(r'^search/', views.search_results, name='search'),
+    url(r'user/(?P<pk>\d+)',views.ProfileDetailView.as_view(template_name='profile_detail.html'), name='profile-detail-view'),
+
    
     
     

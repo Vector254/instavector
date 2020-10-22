@@ -13,7 +13,7 @@
         height: 50px;
         width:100px;
     }
-    .follow{
+    .view_prof{
         background-color: #c90a79;
         color:white;
     }
@@ -39,9 +39,8 @@
         </div>
     
         <div class="col-md-4"> 
-            {% if user.name.username != user.profile.name %}
-            <a href="{% url 'follow' user.name.id %}" class="btn follow">follow</a>
-            {% endif %}
+            <a href="{% url 'profile-detail-view' user.name.pk %}">
+           <button class="btn view_prof">view profile</button></a>
         </div>
          
     </div>  

@@ -2,11 +2,11 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http  import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .models import Image,Comment,Profile, Follow
+from .models import Image,Comment,Profile
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserRegistrationForm, PostForm, CommentForm, UserUpdateForm, ProfileUpdateForm
-from django.views.generic import ListView, DeleteView
+from django.views.generic import DetailView
 from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
@@ -36,6 +36,7 @@ def create_post(request):
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             add=form.save(commit=False)
+            current_user = Profile.objects.get(name=request.user)
             add.author = current_user
             add.save()
             return redirect('index')
@@ -111,7 +112,7 @@ def detail(request,post_id):
 @login_required
 def profile(request, pk):
     images = Image.objects.all()
-    user_profile = get_object_or_404(User, pk=pk)
+    #user_profile = get_object_or_404(User, pk=pk)
    
     if request.method=='POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -131,7 +132,7 @@ def profile(request, pk):
         'images':images,
         'user_form':user_form,
         'profile_form':profile_form,
-        'user_profile':user_profile,
+        
        
     }
    
@@ -150,17 +151,18 @@ def like_post(request, pk):
         liked = True
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
-def follow(request, pk):
-    if request.method == 'GET':
-        user_profile = Profile.objects.get(pk=pk)
-        follow = Follow(follower=request.user.profile, followed=user_profile)
-        if follow.follower == follow.followed:
-            follow=False
-            messages.warning(request, f'You cannot follow self!')
-            return redirect('explore',)
+def follow_unfollow(request):
+    if request.method == 'POST':
+        my_profile = Profile.objects.get(name=request.user)
+        pk = request.POST.get('profile_pk')
+        obj = Profile.objects.get(pk=pk)
+
+        if obj.name in my_profile.following.all():
+            my_profile.following.remove(obj.name)
         else:
-            follow.save()
-            return redirect('explore',)
+            my_profile.following.add(obj.name)
+        return redirect(request.META.get('HTTP_REFERER')) 
+    return redirect('explore')
 
 
 def search_results(request):
@@ -181,6 +183,27 @@ def explore(request):
 
     users=Profile.objects.exclude(name=request.user)
     
-   
-
     return render(request,'explore.html', {'users':users,})
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template = "profile_detail.html"
+    #get user profile
+    def get_object(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        view_profile = Profile.objects.get(pk=pk)
+        return view_profile
+
+    #get my profile
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        view_profile = self.get_object()
+        my_profile = Profile.objects.get(name=self.request.user)
+        if view_profile.name in my_profile.following.all():
+            follow = True
+        else:
+            follow =False
+        context["follow"] = follow
+        return context
+    
+

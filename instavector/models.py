@@ -7,7 +7,7 @@ from PIL import Image
 # Create your models here.
 class Image(models.Model):
 
-    author  = models.ForeignKey(User, on_delete=models.CASCADE, null='True', blank=True)
+    author  = models.ForeignKey('Profile', on_delete=models.CASCADE, null='True', blank=True)
     image = models.ImageField(upload_to = 'pics/')
     name = models.CharField(max_length=50,blank=True)	   
     caption = models.CharField(max_length=250, blank=True)	
@@ -51,7 +51,10 @@ class Profile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)	  
-    
+    following = models.ManyToManyField(User, related_name='following', blank=True)
+
+    def profile_posts(self):
+        return self.image_set.all()
 
     def total_follows(self):
         return self.follows.count()
@@ -80,16 +83,5 @@ class Comment(models.Model):
     class Meta:
         ordering = ["-pk"]
 
-class Follow(models.Model):
-    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
-    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
-
-    def __str__(self):
-        return f'{self.follower} Follow'
-
-    class Meta:
-        unique_together = ('follower', 'followed')
-    
-    def clean(self):
-        if self.follower == self.followed:
-            raise ValidationError("One Cannot follow themselves")
+   
+   

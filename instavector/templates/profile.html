@@ -41,7 +41,7 @@
          
             <div class="etc">
                 <ul>
-                    <li><b>{{images.count}}</b>posts</li>
+                    <li><b>{{user.profile.profile_posts.count}}</b>  post {{user.profile.profile_posts.count|pluralize}}</li>
                     <li>followers</li>
                     <li>following</li>
                 </ul>
@@ -72,7 +72,7 @@
     </div>
     <hr>
     <p class="text-center"><b>POSTS</b> </p>
-    {% for post in images %}
+    {% for post in user.profile.profile_posts %}
     <div class="col-md-4">
         <div class="posted">
             <img src="{{post.image.url}}" alt="">
