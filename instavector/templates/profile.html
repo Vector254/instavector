@@ -11,11 +11,6 @@
     border: 1px solid grey;
     border-radius: 150px;
 }
-.etc li{
-    list-style: none;
-    display: inline-block;
-    margin-right: 20px;
-}
 .posted img{
     margin-bottom: 20px;
     height:280px ;
@@ -33,21 +28,23 @@
         </div>
         <div class="col-md-4">
             <h1>{{user.username}} </h1>
-                <button class="btn btn-default" data-toggle="modal" data-target=".bd-modal-md"><b>edit profile</b> </button>
+                
             <h5>email: <b>{{user.email}}</b> </h5>
 
            
          
          
-            <div class="etc">
-                <ul>
-                    <li><b>{{user.profile.profile_posts.count}}</b>  post {{user.profile.profile_posts.count|pluralize}}</li>
-                    <li>followers</li>
-                    <li>following:<b>{{user.profile.following.count}}</b></li>
-                </ul>
-            </div>
+           
             
             <br><p>{{user.profile.bio}}</p>
+
+        </div>
+        <div class="col-md-4"><br>
+           
+                <button class="btn btn-default" data-toggle="modal" data-target=".bd-modal-md"><b>edit profile</b> </button>
+                <p><br><b>{{user.profile.profile_posts.count}}</b>  post {{user.profile.profile_posts.count|pluralize}}</p>
+                <p>following:<b>{{user.profile.following.count}}</b></p>
+            
         </div>
     </div>
     <hr>
