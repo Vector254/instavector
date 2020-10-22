@@ -53,6 +53,11 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, default="My Bio", blank=True)	  
     following = models.ManyToManyField(User, related_name='following', blank=True)
 
+    @classmethod
+    def search_by_name(cls, search_term):
+        profiles = cls.objects.filter(name__username__icontains=search_term)
+        return profiles 
+
     def profile_posts(self):
         return self.image_set.all()
 

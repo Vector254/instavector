@@ -14,29 +14,25 @@ margin: 10px;
 }
 .pic{
     width: 100%;
-    height: 100%;
+    height: 200px;
 }
 </style>
 
 <div class="container">
-
-    <div class="row text-center">
-      {% if images%}
-        <h2>Found {{ images|length }} of searched term {{message}}</h2>
-      {% else %}
-        <h2> Found 0 images for the search term {{message}}</h2>
-      {% endif %}
   
-    </div>
-    <hr>
   
     <div class="row results">
-        
+      <div class="col-md-6">
+      {% if images%}
+        <h3>Found {{ images|length }} post{{ images|length|pluralize }} </h3>
+      {% else %}
+        <h3> Found 0 post</h3>
+      {% endif %}
+        <hr>
       {% for image in images %}
-      <!-- displaying News articles -->
+      <!-- displaying post results -->
           
-          <div class="card col-md-4">
-              <div class="card-header"><h2>{{image.caption}}</h2></div>
+          <div class="card col-md-5">
             <div class="card-body">
              <a href="{% url 'detail' image.id %}"><img class="pic" src="{{image.image.url}}"  alt="Image"></a>
 
@@ -45,8 +41,34 @@ margin: 10px;
           </div>
   
       </div>  
-    {% endfor %}
-    </div>
+      {% endfor %}
+      </div>
+      
+      <div class="col-md-6">
+    
+      {% if profiles%}
+          <h3>Found {{ profiles|length }} profile{{ profiles|length|pluralize }}</h3>
+        {% else %}
+          <h3> Found 0 profile</h3>
+        {% endif %}
+        <hr>
+      {% for profile in profiles %}
+      <!-- displaying profile results -->
+        
+        <div class="card col-md-5">
+            <div class="card-header"><h2>{{profile.name}}</h2></div>
+          <div class="card-body">
+           <a href="{% url 'profile-detail-view' profile.id %}"><img class="pic" src="{{profile.profile_picture.url}}"  alt="Image"></a>
+
+            
+        
+        </div>
+
+    </div>  
+  {% endfor %}
+  </div>
+  </div>
+
     </div>
     {% endblock %}
     

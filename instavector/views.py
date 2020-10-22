@@ -186,9 +186,16 @@ def search_results(request):
     if 'query' in request.GET and request.GET["query"]:
         search_term = request.GET.get("query")
         searched_images = Image.search_by_name(search_term)
+        searched_profiles = Profile.search_by_name(search_term)
         message = f"{search_term}"
 
-        return render(request, 'search.html',{"message":message,"images": searched_images})
+        params = {
+        "images": searched_images,
+        "message":message,
+        'profiles':searched_profiles,   
+    }
+
+        return render(request, 'search.html',params)
 
     else:
         message = "You haven't searched!"
