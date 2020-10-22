@@ -11,6 +11,7 @@ from django.db.models.base import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.db.models import Q
+from itertools import chain
 
 # Create your views here.
 def register(request):
@@ -47,11 +48,26 @@ def create_post(request):
 
 @login_required
 def index(request):
-    images = Image.objects.all()
-    liked = False
-    
-  
-    context = {'images':images,}
+    images=Image.objects.all()
+    #get logged in user profile
+    profile = Profile.objects.get(name=request.user)
+    # check who we are following
+    users = [user for user in profile.following.all()]
+    #variables
+    posts=[]
+    qs= None
+    #get posts of people we are following
+    for u in users:
+        p = Profile.objects.get(name=u)
+        p_posts = p.profile_posts()
+        posts.append(p_posts)
+    #get our posts
+    my_posts=profile.profile_posts()
+    posts.append(my_posts)
+    #unpack posts list
+    qs = sorted(chain(*posts), reverse=True, key=lambda obj: obj.date_posted)
+
+    context = {'profile':profile,'posts':qs}
        
     return render(request, 'index.html', context)
 
@@ -182,6 +198,7 @@ def search_results(request):
 def explore(request):
 
     users=Profile.objects.exclude(name=request.user)
+   
     
     return render(request,'explore.html', {'users':users,})
 

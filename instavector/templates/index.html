@@ -5,13 +5,15 @@
 
 {{block.super}}
 <style>
-  
+  .info{
+    color: #c72e8c;
+  }
   
 </style>
 <div class="container">
     
    <div class="status text-center">
-    {% for image in images|slice:'5'%}
+    {% for image in posts|slice:'5'%}
        <div class="each">
             <a href="{% url 'detail' image.id %}"><img src="{{image.image.url}}" alt=""></a>
             <p>{{image.name|truncatechars:12}}</p>
@@ -24,7 +26,8 @@
    </div>
    
    <div class="posts">
-    {% for image in images %}
+     {% if posts%}
+    {% for image in posts %}
     <div class="card ">
         <div class="card-header">
          
@@ -98,6 +101,9 @@
       {% endfor %}
    
 </div>
+{% else %}
+<p class="text-center info"><b>Navigate to the explore <i class="glyphicon glyphicon-globe"></i> tab and start following people to see their posts!</b></p>
+{% endif %}
 
 </div>
 

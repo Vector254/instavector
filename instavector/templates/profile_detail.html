@@ -4,11 +4,36 @@
     body{
         margin-top: 100px;
     }
+    .posts  {
+        text-align: center;
+    }
+    .posted{
+    margin-bottom: 20px;
+    height:280px ;
+    width: 100%;
+}
 </style>
 <div class="container">
-    <img src="" alt="">
-    <div class="col-md-5">
-        <b>{{object.name}}</b>  
+    <div class="row">
+        <div class="col-md-4">
+        
+            <img class="prof_pic" src="{{object.profile_picture.url}}" alt="profile_pic">
+        </div>
+        <div class="col-md-4">
+            <h1>{{object.name.username}} </h1>
+                
+            <h5>email: <b>{{object.name.email}}</b> </h5>
+            
+            
+            <br><p>{{object.bio}}</p>
+           
+            
+          
+        </div>
+    
+  
+    <div class="col-md-4"><br>
+        
         {% if follow %}
             <form action="{% url 'follow-unfollow-view' %}" method="POST">
                 {% csrf_token %}
@@ -21,16 +46,24 @@
             <input type="hidden" name="profile_pk" value={{object.pk}}>
             <button type="submit" class="btn btn-primary">follow</button>
         </form>
-        {%endif%}
+        {%endif%}  <br>
+        <p> <b>{{object.profile_posts.count}}</b>  post {{object.profile_posts.count|pluralize}}</p>
+                   
+        <p> following:<b>{{object.following.count}}</b></p> 
+                
+          
+        
     </div>
-    <div class="col-md-7">
+    </div><hr>
+    <div class="row">
+        <h3 class="text-center">posts</h3>
         {% for post in object.profile_posts %}
-            <div class="card">
+            <div class="card col-md-4 posts">
                 <div class="card-header">
-                    {{post.author}}
+                    {{post.name}}
                 </div>
                 <div class="card-body">
-                    {{post.name}}
+                   <img class="posted" src="{{post.image.url}}" alt="{{post.name}}"> 
                 </div>
             </div>
         {% endfor %}
