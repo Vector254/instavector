@@ -31,7 +31,7 @@
     <div class="card ">
         <div class="card-header">
          
-          <img id="card-img" src="{{image.author.profile_picture.url}}" alt=""> <b>{{image.author.name}}</b>
+          <img id="card-img" src="{{image.author.profile_picture.url}}" alt="prof_pic"> <b>{{image.author.name}}</b>
          
             <a class="more" href="#modalCenter" data-toggle="modal"><i class="glyphicon glyphicon-option-horizontal"></i></a>
             <!--modal-->
@@ -39,15 +39,13 @@
                 <div class="  modal-dialog modal-sm">
                   <div class="modal-content">
                     
-                    <a href="">unfollow</a><br><hr>
+                   
                     <a  href="#posted">go to post</a><br><hr>
                     <a href="">share</a><br><hr>
-                    <a href="">copy link</a><br><hr>
-                    {% if image.author ==  user.profile.name.username%}
-                      <a class="del" href="{% url 'delete' image.id %}">delete</a><br><hr>
-                    {% endif %}
+                    <input class="form-control input-lg" type="text" value="{{image.image.url}}" id="{{image.id}}.url">
+                    <button class="btn " onclick="copyLink('{{image.id}}.url')">copy link</button><br><hr>
                     <button type="button" class="btn btn-secondary text-center" data-dismiss="modal"><b>close</b> </button>
-                    
+                   
                   </div>
                 </div>
               </div>
@@ -77,7 +75,7 @@
                   <p><b>{{ image.total_likes }} like{{image.total_likes|pluralize}}</b></p>
               
           </div>
-          <p class="card-text"><b>{{image.author}}:</b> {{image.caption}}</p>
+          <p class="card-text"><b>{{image.author.name}}:</b> {{image.caption}}</p>
           <p class="text-muted">{{image.comments.count}} comment{{image.comments.count|pluralize}}</p>
           <div id="comment-section">
             {% for comment in image.comments.all|slice:'2' %}

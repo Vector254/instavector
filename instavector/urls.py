@@ -16,7 +16,7 @@ urlpatterns=[
     url('register/', views.register, name='register'),
     #url('login/', auth_views.LoginView.as_view(), name='login'),
     url('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
-    url(r'profile/(\d+)', views.profile, name='profile'),
+    url('profile/', views.profile, name='profile'),
     url(r'post/(\d+)/delete',views.delete_post,name = 'delete'),
     url(r'post/new/',views.create_post,name = 'create'),
     #url(r'post/(\d+)/comment',views.comment,name = 'comment'),

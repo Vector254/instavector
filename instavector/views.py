@@ -126,7 +126,7 @@ def detail(request,post_id):
     
 
 @login_required
-def profile(request, pk):
+def profile(request):
     images = Image.objects.all()
     #user_profile = get_object_or_404(User, pk=pk)
    
@@ -138,7 +138,7 @@ def profile(request, pk):
            user_form.save() 
            profile_form.save()
            messages.success(request, f'Profile info updated successfully!')
-           return redirect('profile')
+           return redirect('profile' )
 
     else:
         user_form = UserUpdateForm(instance=request.user)

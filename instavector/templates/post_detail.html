@@ -21,8 +21,8 @@
     <div class="col-md-6">
 <div class="card ">
     <div class="card-header">
-      <img id="card-img" src="{{image.author.profile.profile_picture.url}}" alt=""><b>{{image.author}}</b>
-      {% if image.author == user %}
+      <img id="card-img" src="{{image.author.profile_picture.url}}" alt=""><b>{{image.author.name}}</b>
+      {% if image.author.name == user %}
       <a class="btn btn-danger" style="float: right;" href="{% url 'delete' image.id %}"><i class="glyphicon glyphicon-trash"></i></a> 
       {% endif %}  
      
