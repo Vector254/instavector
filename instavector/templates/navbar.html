@@ -14,17 +14,21 @@
     color:#c72e8c ;
 
   }
+  .navbar-toggler{
+    margin-top: -20px;
+  }
 </style>
-<div class="container-fluid navig">
-<nav class="navbar  navbar-fixed-top">
+<div class="container-fluid navig ">
+<nav class="navbar  navbar-fixed-top navbar-expand-sm">
     <div class="col-sm-3 col-md-3">
       <div class="navbar-header">
         <a id="nav-name" class="navbar-brand" href="/">Instavector</a>
-        
-      
       </div>
+      <button class="navbar-toggler hidden-sm " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="float: right;">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+      </button>
     </div>
-      
+ <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <!-- Adding a search form  -->
       <div class=" col-md-5">
     
@@ -64,6 +68,7 @@
           </ul>
       </div>
       </div>
+    </div>
      
     
 </nav>
